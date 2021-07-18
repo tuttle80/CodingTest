@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ComapnyListAdapter (val context: Context, val mList: ArrayList<ComapnyListSimpleData>) :
+class ComapnyListAdapter (val context: Context, var mList: ArrayList<ComapnyListSimpleData>) :
     RecyclerView.Adapter<ComapnyListAdapter.CustomViewHolder>() {
 
     inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,6 +32,10 @@ class ComapnyListAdapter (val context: Context, val mList: ArrayList<ComapnyList
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bind(mList[position])
+    }
+
+    fun setData(list: ArrayList<ComapnyListSimpleData>) {
+        mList = list
     }
 
     override fun getItemCount(): Int {

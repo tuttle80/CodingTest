@@ -11,6 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jobplanettest.databinding.FragmentFirstBinding
+import com.example.jobplanettest.db.CompanyInfoRepo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -26,23 +30,38 @@ class FirstFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    var simpleList = arrayListOf<ComapnyListSimpleData>(
-        ComapnyListSimpleData("포두주", "음..."),
-        ComapnyListSimpleData("사과주", "달콤"),
-        ComapnyListSimpleData("딸기주", "상큼"),
-        ComapnyListSimpleData("당근", "오잉?"),
-        ComapnyListSimpleData("당근", "당근?"),
-        ComapnyListSimpleData("당근", "아삭아삭아..."),
-        ComapnyListSimpleData("당근", "으...."),
-        ComapnyListSimpleData("당근 으....", "아직도 당근"),
-    )
-
+    var simpleList = arrayListOf<ComapnyListSimpleData>()
+    var listAdapter : ComapnyListAdapter? = null
 
 
     // ViewModel 통지 받고 화면 갱신
     var comapnyInfoCountObserver = Observer<Int> { count ->
 
+        if (count == 0) {
+            Log.d("BugFix", "Observer chk 1")
+            simpleList.clear()
+        }
+        else if (simpleList.isEmpty() == true){
+            Log.d("BugFix", "Observer chk 2")
+            simpleList = arrayListOf<ComapnyListSimpleData>(
+                ComapnyListSimpleData("포두주", "음..."),
+                ComapnyListSimpleData("사과주", "달콤"),
+                ComapnyListSimpleData("딸기주", "상큼"),
+                ComapnyListSimpleData("당근", "오잉?"),
+                ComapnyListSimpleData("당근", "당근?"),
+                ComapnyListSimpleData("당근", "아삭아삭아..."),
+                ComapnyListSimpleData("당근", "으...."),
+                ComapnyListSimpleData("당근 으....", "아직도 당근"),
+            )
+
+            listAdapter?.setData(simpleList)
+            listAdapter?.notifyDataSetChanged()
+//            binding.companyList.adapter?.
+//            binding.companyList.adapter?.notifyDataSetChanged()
+        }
+
         Log.d("BugFix", "Observer count : " + count)
+        showWidget()
 
 //        view?.let { view ->
 //            if (0 < count) {
@@ -56,11 +75,29 @@ class FirstFragment : Fragment() {
 //        }
     };
 
+    fun showWidget() {
+        if (simpleList.isEmpty() == true) {
+            binding.emptyMessageLayout.visibility = View.VISIBLE;
+            binding.companyList.visibility = View.GONE;
+        }
+        else {
+            binding.emptyMessageLayout.visibility = View.GONE;
+            binding.companyList.visibility = View.VISIBLE;
+        }
+    }
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val companyInfoRepo = CompanyInfoRepo()
+            companyInfoRepo.clearData(requireContext())
+        }.start()
+
+
         firstViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
         //firstViewModel = ViewModelProvider(this).get(firstViewModel::class.java)
         firstViewModel.getCount(requireContext()).observe(viewLifecycleOwner, comapnyInfoCountObserver)
@@ -75,9 +112,12 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.companyList.adapter = ComapnyListAdapter(requireContext(), simpleList)
+        listAdapter = ComapnyListAdapter(requireContext(), simpleList)
+        binding.companyList.adapter = listAdapter
         binding.companyList.layoutManager = LinearLayoutManager(requireContext())
         binding.companyList.setHasFixedSize(true)
+
+        showWidget()
 
 //        simpleRecyclerView.adapter = HomeListAdapter(requireContext(), simpleList)
 //        simpleRecyclerView.layoutManager = LinearLayoutManager(requireContext())

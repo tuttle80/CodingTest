@@ -28,6 +28,13 @@ class CompanyInfoRepo {
         }
 
     }
+
+    fun clearData(context: Context) {
+        var companyInfoDatabase = CompanyInfoDatabase.getInstance(context)
+        companyInfoDatabase?.companyInfoDao()?.deleteAll();
+    }
+
+
 //
 //    fun isExistAccount(context: Context, email: String) : Boolean {
 //        var userDatabase = CompanyInfoDatabase.getInstance(context)

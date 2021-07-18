@@ -58,3 +58,13 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 }
+
+
+//TODO REST API 추가
+//TODO 다운받은 Raw data 를 DB에 반영
+// TODO VM 에서 데이터 가공
+// TODO 가공된 데이터 보여주기
+// TODO REST 로 받을 때 프로그래스 봉주기
+// TODO 상단에 메뉴 삭제, 가져오기
+
+
