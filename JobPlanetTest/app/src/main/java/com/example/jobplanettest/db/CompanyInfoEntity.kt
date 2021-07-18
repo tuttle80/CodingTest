@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 @Entity
 class CompanyInfoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long?,
-    @ColumnInfo(name = "DateTime") var dateTime: Long,
+    @ColumnInfo(name = "LastUpdatedDT") var lastUpdatedDT: Long,
     @ColumnInfo(name = "RawData") var rawData: String?,
 
 //    @ColumnInfo(name = "EMail") var email: String,

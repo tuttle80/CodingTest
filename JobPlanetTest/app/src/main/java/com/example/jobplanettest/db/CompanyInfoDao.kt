@@ -12,8 +12,10 @@ import com.example.jobplanettest.ComapnyListAdapter
 interface CompanyInfoDao {
 
 
+
+
     @Query("SELECT COUNT(*) FROM CompanyInfoEntity")
-    fun getCount(): LiveData<Int>
+    fun getCountNormal(): Int
 
     @Insert(onConflict = REPLACE)
     fun insert(companyInfo: CompanyInfoEntity)
@@ -21,6 +23,12 @@ interface CompanyInfoDao {
     @Query("DELETE from CompanyInfoEntity")
     fun deleteAll()
 
+
+    @Query("SELECT COUNT(*) FROM CompanyInfoEntity")
+    fun getCount(): LiveData<Int>
+
+    @Query("SELECT MAX(LastUpdatedDT) FROM CompanyInfoEntity")
+    fun getLastUpdateDT(): LiveData<Long>
 
 
 

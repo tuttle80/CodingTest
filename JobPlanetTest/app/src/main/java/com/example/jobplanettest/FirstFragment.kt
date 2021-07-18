@@ -35,13 +35,16 @@ class FirstFragment : Fragment() {
 
 
     // ViewModel 통지 받고 화면 갱신
-    var comapnyInfoCountObserver = Observer<Int> { count ->
+    var comapnyInfoCountObserver = Observer<Long> { // count ->
 
-        if (count == 0) {
-            Log.d("BugFix", "Observer chk 1")
-            simpleList.clear()
-        }
-        else if (simpleList.isEmpty() == true){
+
+
+//        if (count == 0) {
+//            Log.d("BugFix", "Observer chk 1")
+//            simpleList.clear()
+//        }
+//        else
+            if (simpleList.isEmpty() == true){
             Log.d("BugFix", "Observer chk 2")
             simpleList = arrayListOf<ComapnyListSimpleData>(
                 ComapnyListSimpleData("포두주", "음..."),
@@ -60,7 +63,7 @@ class FirstFragment : Fragment() {
 //            binding.companyList.adapter?.notifyDataSetChanged()
         }
 
-        Log.d("BugFix", "Observer count : " + count)
+        Log.d("BugFix", "Observer count : " )
         showWidget()
 
 //        view?.let { view ->
@@ -100,7 +103,7 @@ class FirstFragment : Fragment() {
 
         firstViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
         //firstViewModel = ViewModelProvider(this).get(firstViewModel::class.java)
-        firstViewModel.getCount(requireContext()).observe(viewLifecycleOwner, comapnyInfoCountObserver)
+        firstViewModel.getLastUpdatedDateTime(requireContext()).observe(viewLifecycleOwner, comapnyInfoCountObserver)
 //        signInViewModel.getCount(requireContext()).observe(viewLifecycleOwner, accountCountObserver)
 
 
