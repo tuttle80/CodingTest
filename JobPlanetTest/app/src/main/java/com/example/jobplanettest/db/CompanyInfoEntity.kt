@@ -9,11 +9,13 @@ import androidx.room.PrimaryKey
 @Entity
 class CompanyInfoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long?,
-    @ColumnInfo(name = "LastUpdatedDT") var lastUpdatedDT: Long,
-    @ColumnInfo(name = "RawData") var rawData: String?,
+    @ColumnInfo(name = "CellType") var cellType: Int,
+    @ColumnInfo(name = "Name") var name: String?,
+    @ColumnInfo(name = "RateTotalAvg") var rateTotalAvg: Double,
+    @ColumnInfo(name = "IndustryName") var industryName: String?,
 
 //    @ColumnInfo(name = "EMail") var email: String,
 //    @ColumnInfo(name = "Password") var password: String
 ){
-    constructor(): this(0, 0, "")
+    constructor(): this(0, 0, "", 0.0, "")
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.jobplanettest.db.CompanyInfoDatabase
+import com.example.jobplanettest.db.CompanyInfoEntity
 
 class FirstViewModel: ViewModel() {
     fun getCount(context: Context) : LiveData<Int> {
@@ -15,12 +16,21 @@ class FirstViewModel: ViewModel() {
         return companyInfoDatabase?.companyInfoDao()?.getCount() ?: zeroValue
     }
 
-    fun getLastUpdatedDateTime(context: Context) : LiveData<Long> {
+    fun getListAll(context: Context) : LiveData< Array<CompanyInfoEntity> > {
         var companyInfoDatabase = CompanyInfoDatabase.getInstance(context)
-        var zeroValue = MutableLiveData<Long>().apply {
-            value = 0
+        var zeroValue = MutableLiveData< Array<CompanyInfoEntity> >().apply {
+            //value = Array<CompanyInfoEntity>()
         }
 
-        return companyInfoDatabase?.companyInfoDao()?.getLastUpdateDT() ?: zeroValue
+        return companyInfoDatabase?.companyInfoDao()?.getListAll() ?: zeroValue
     }
+
+//    fun getLastUpdatedDateTime(context: Context) : LiveData<Long> {
+//        var companyInfoDatabase = CompanyInfoDatabase.getInstance(context)
+//        var zeroValue = MutableLiveData<Long>().apply {
+//            value = 0
+//        }
+//
+//        return companyInfoDatabase?.companyInfoDao()?.getLastUpdateDT() ?: zeroValue
+//    }
 }

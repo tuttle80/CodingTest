@@ -13,11 +13,13 @@ class ComapnyListAdapter (val context: Context, var mList: ArrayList<ComapnyList
 
     inner class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         protected var name = view.findViewById<AppCompatTextView>(R.id.name)
+        protected var totalAvg = view.findViewById<AppCompatTextView>(R.id.rate_total_avg)
+        protected var industryName = view.findViewById<AppCompatTextView>(R.id.industry_name)
 
         fun bind(simpleData: ComapnyListSimpleData) {
             name.text = simpleData.title
-
-            Log.d("BugFix", "RecyclerView.CustomViewHolder : " + name.text);
+            totalAvg.text = simpleData.totalAvg.toString()
+            industryName.text = simpleData.industryName
         }
     }
 

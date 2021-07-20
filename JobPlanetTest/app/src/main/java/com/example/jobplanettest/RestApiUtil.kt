@@ -3,6 +3,7 @@ package com.example.jobplanettest
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.widget.AppCompatTextView
+import com.example.jobplanettest.db.CompanyInfoEntity
 import com.example.jobplanettest.db.CompanyInfoRepo
 import com.example.jobplanettest.restapi.JobPlanetAPI
 import com.example.jobplanettest.restapi.JobPlanetCompanyInfoList
@@ -37,13 +38,45 @@ class RestApiUtil {
                 ) {
                     Log.d("BugFix", "성공 : ${response.raw()}" + " / " + response.code())
 
+
+                    val responseList = ArrayList<CompanyInfoEntity>()
+
+                    response.body()?.let {
+                        var index : Long = 0
+                        for (item in it.items) {
+                            var info = CompanyInfoEntity()
+
+
+                            info.cellType = when (item.cell_type) {
+                                "CELL_TYPE_COMPANY" -> CellTypeDefine.Company.ordinal
+                                "CELL_TYPE_HORIZONTAL_THEME" -> CellTypeDefine.HorizontalTheme.ordinal
+                                "CELL_TYPE_REVIEW" -> CellTypeDefine.Review.ordinal
+                                else -> CellTypeDefine.Unknown.ordinal
+                            }
+
+                            info.name = item.name
+                            info.rateTotalAvg = item.rate_total_avg
+                            info.industryName = item.industry_name
+
+                            info.id = index
+
+
+                            index++
+
+                            responseList.add(info)
+                        }
+                    }
+
+
+
+
+                    //response.body().
                     CoroutineScope(Dispatchers.IO).launch {
-                                 Log.d("BugFix", "TestCasl")
 
                         // Update Repo
                         val companyInfoRepo = CompanyInfoRepo()
 
-                        companyInfoRepo.refreshRawData(context, "New Json data")
+                        companyInfoRepo.refreshRawData(context, responseList)
 
                     }.start()
                 }
