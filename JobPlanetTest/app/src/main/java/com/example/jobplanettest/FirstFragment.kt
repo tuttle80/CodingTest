@@ -1,14 +1,12 @@
 package com.example.jobplanettest
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jobplanettest.databinding.FragmentFirstBinding
 import com.example.jobplanettest.db.CompanyInfoEntity
@@ -34,41 +32,6 @@ class FirstFragment : Fragment() {
     var simpleList = arrayListOf<ComapnyListSimpleData>()
     var listAdapter : ComapnyListAdapter? = null
 
-
-    // ViewModel 통지 받고 화면 갱신
-//    var comapnyInfoCountObserver = Observer<Int> { count ->
-//
-//
-//
-//
-//        if (count == 0) {
-//            Log.d("BugFix", "Observer chk 1")
-//            simpleList.clear()
-//        }
-//        else
-//            if (simpleList.isEmpty() == true){
-//            Log.d("BugFix", "Observer chk 2")
-//            simpleList = arrayListOf<ComapnyListSimpleData>(
-//                ComapnyListSimpleData("포두주", "음..."),
-//                ComapnyListSimpleData("사과주", "달콤"),
-//                ComapnyListSimpleData("딸기주", "상큼"),
-//                ComapnyListSimpleData("당근", "오잉?"),
-//                ComapnyListSimpleData("당근", "당근?"),
-//                ComapnyListSimpleData("당근", "아삭아삭아..."),
-//                ComapnyListSimpleData("당근", "으...."),
-//                ComapnyListSimpleData("당근 으....", "아직도 당근"),
-//            )
-//
-//            listAdapter?.setData(simpleList)
-//            listAdapter?.notifyDataSetChanged()
-////            binding.companyList.adapter?.
-////            binding.companyList.adapter?.notifyDataSetChanged()
-//        }
-//
-//        Log.d("BugFix", "Observer count : " )
-//        showWidget()
-//
-//    };
 
     var companyInfoListObserver = Observer< Array<CompanyInfoEntity> > { arrayList ->
         simpleList.clear();
@@ -111,14 +74,7 @@ class FirstFragment : Fragment() {
 
 
         firstViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
-        //firstViewModel = ViewModelProvider(this).get(firstViewModel::class.java)
-//        firstViewModel.getCount(requireContext()).observe(viewLifecycleOwner, comapnyInfoCountObserver)
         firstViewModel.getListAll(requireContext()).observe(viewLifecycleOwner, companyInfoListObserver)
-
-
-
-//        signInViewModel.getCount(requireContext()).observe(viewLifecycleOwner, accountCountObserver)
-
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
@@ -134,14 +90,6 @@ class FirstFragment : Fragment() {
         binding.companyList.setHasFixedSize(true)
 
         showWidget()
-
-//        simpleRecyclerView.adapter = HomeListAdapter(requireContext(), simpleList)
-//        simpleRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        simpleRecyclerView.setHasFixedSize(true)
-
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
     }
 
     override fun onDestroyView() {

@@ -1,7 +1,6 @@
 package com.example.jobplanettest
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,6 @@ class ComapnyListAdapter (val context: Context, var mList: ArrayList<ComapnyList
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutView = LayoutInflater.from(context)
             .inflate(R.layout.recycleritem_company, parent, false)
-
-        Log.d("BugFix", "RecyclerView.onCreateViewHolder");
 
         return CustomViewHolder(layoutView)
     }

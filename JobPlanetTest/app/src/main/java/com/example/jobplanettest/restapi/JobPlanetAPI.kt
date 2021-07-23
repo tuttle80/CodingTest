@@ -10,9 +10,6 @@ import retrofit2.http.Query
 interface JobPlanetAPI {
     @GET("mobile-config/test_data.json")
     fun getTestData(
-//        @Header("X-Naver-Client-Id") clientId: String,
-//        @Header("X-Naver-Client-Secret") clientSecret: String,
-//        @Query("query") query: String,
         @Query("display") display: Int? = null,
         @Query("start") start: Int? = null
     ): Call<JobPlanetCompanyInfoList>

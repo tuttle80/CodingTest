@@ -7,15 +7,7 @@ import java.security.MessageDigest
 
 class CompanyInfoRepo {
 
-
-//    private fun md5(str: String): ByteArray = MessageDigest.getInstance("MD5").digest(str.toByteArray(UTF_8))
-//    private fun ByteArray.toHex() = joinToString("") { "%02x".format(it) }
-
     fun refreshRawData(context: Context, responseList: ArrayList<CompanyInfoEntity>) {
-//        val newData = CompanyInfoEntity()
-//        newData.rawData = "12345"
-//        newData.lastUpdatedDT = System.currentTimeMillis()
-
         var companyInfoDatabase = CompanyInfoDatabase.getInstance(context)
         val companyInfoDao = companyInfoDatabase?.companyInfoDao()
 
@@ -27,15 +19,6 @@ class CompanyInfoRepo {
 //            }
 
             companyInfoDao.insert(responseList)
-
-//            for (entry in responseList) {
-//
-//                companyInfoDao.insert(entry)
-//            }
-
-            // TODO 왜 타임 sleep 이 발생하지????
-      //      Log.d("BugFix", "Data Count : " + companyInfoDao.getCountNormal())
-
         }
 
     }
@@ -44,21 +27,4 @@ class CompanyInfoRepo {
         var companyInfoDatabase = CompanyInfoDatabase.getInstance(context)
         companyInfoDatabase?.companyInfoDao()?.deleteAll();
     }
-
-
-//
-//    fun isExistAccount(context: Context, email: String) : Boolean {
-//        var userDatabase = CompanyInfoDatabase.getInstance(context)
-//
-//        val count = userDatabase?.userDao()?.isExistAccount(email) ?: 0
-//        return count == 1
-//    }
-//
-//    fun isValidAccount(context: Context, email: String, password: String) : Boolean {
-//        var userDatabase = CompanyInfoDatabase.getInstance(context)
-//        val pwdMD5 = md5(password).toHex()
-//
-//        val count = userDatabase?.userDao()?.isValidAccount(email, pwdMD5) ?: 0
-//        return count == 1
-//    }
 }

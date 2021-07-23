@@ -30,9 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             RestApiUtil().RefreshCompanyInfo(this)
-
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
         }
     }
 

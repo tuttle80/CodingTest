@@ -1,7 +1,5 @@
 package com.example.jobplanettest.restapi
 
-import android.graphics.Color
-
 data class JobPlanetCompanyInfoList (
     var minimum_interviews: Int = 0,
     var minimum_reviews: Int = 0,

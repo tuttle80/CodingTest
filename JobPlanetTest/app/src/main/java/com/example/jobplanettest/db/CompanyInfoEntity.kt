@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-//@Entity(tableName = "user")
 @Entity
 class CompanyInfoEntity(
     @PrimaryKey(autoGenerate = true) var id: Long?,
@@ -13,9 +12,6 @@ class CompanyInfoEntity(
     @ColumnInfo(name = "Name") var name: String?,
     @ColumnInfo(name = "RateTotalAvg") var rateTotalAvg: Double,
     @ColumnInfo(name = "IndustryName") var industryName: String?,
-
-//    @ColumnInfo(name = "EMail") var email: String,
-//    @ColumnInfo(name = "Password") var password: String
 ){
     constructor(): this(0, 0, "", 0.0, "")
 }

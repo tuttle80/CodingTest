@@ -24,13 +24,4 @@ class FirstViewModel: ViewModel() {
 
         return companyInfoDatabase?.companyInfoDao()?.getListAll() ?: zeroValue
     }
-
-//    fun getLastUpdatedDateTime(context: Context) : LiveData<Long> {
-//        var companyInfoDatabase = CompanyInfoDatabase.getInstance(context)
-//        var zeroValue = MutableLiveData<Long>().apply {
-//            value = 0
-//        }
-//
-//        return companyInfoDatabase?.companyInfoDao()?.getLastUpdateDT() ?: zeroValue
-//    }
 }
